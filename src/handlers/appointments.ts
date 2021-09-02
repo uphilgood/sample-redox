@@ -1,6 +1,5 @@
 import { ResponseToolkit } from "@hapi/hapi";
 import { DB } from "../db";
-import { chain } from 'lodash';
 
 
 
