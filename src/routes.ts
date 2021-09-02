@@ -1,5 +1,5 @@
 import * as Joi from "@hapi/joi";
-import { helloWorld } from './handlers/helloWorld';
+import { getDestination, postDestination } from './handlers/destination';
 import { IResultHTTPStatus} from './types/types';
 
 const resultHTTPStatus: IResultHTTPStatus = {
@@ -28,9 +28,25 @@ const resultHTTPStatus: IResultHTTPStatus = {
 export const Routes = [
   {
     method: "GET",
-    path: "/hello",
+    path: "/destination",
     options: {
-      handler: helloWorld,
+      handler: getDestination,
+      description: "Gets destination token",
+      notes: `return destination token challenge`,
+      plugins: {
+        "hapi-swagger": {
+          responses: resultHTTPStatus,
+        },
+      },
+      tags: ["api"],
+      validate: {},
+    },
+  },
+  {
+    method: "POST",
+    path: "/destination",
+    options: {
+      handler: postDestination,
       description: "Hello World",
       notes: `Returns Hello World`,
       plugins: {
