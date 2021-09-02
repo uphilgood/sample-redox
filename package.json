@@ -1,0 +1,43 @@
+{
+  "name": "typescript-hapi-project",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc && lab -v -c -I 'Reflect,core,_babelPolyfill,regeneratorRuntime,__core-js_shared__,CSS' **/tests/*.test.js ",
+    "start:dev": "nodemon",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.27",
+    "husky": "^5.0.9",
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/inert": "^6.0.1",
+    "@hapi/joi": "^17.1.1",
+    "@hapi/lab": "^24.1.0",
+    "@hapi/vision": "^6.0.0",
+    "@types/chai": "^4.2.15",
+    "@types/hapi__hapi": "^19.0.3",
+    "@types/hapi__inert": "^5.2.0",
+    "@types/hapi__joi": "^17.1.3",
+    "@types/hapi__vision": "^5.5.1",
+    "chai": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "hapi-swagger": "^13.0.2"
+  }
+}
