@@ -54,6 +54,7 @@ export const Routes = [
           responses: resultHTTPStatus,
         },
       },
+      payload: Joi.object(),
       tags: ["api"],
       validate: {},
     },

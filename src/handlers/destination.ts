@@ -28,7 +28,9 @@ export const postDestination = (
   h: ResponseToolkit
 ): any => {
 
-  const message = r.body;
+  const message = r.payload;
+
+  console.log('message', r.payload)
 
   return message;
 
