@@ -54,9 +54,13 @@ export const Routes = [
           responses: resultHTTPStatus,
         },
       },
-      payload: Joi.object(),
       tags: ["api"],
-      validate: {},
+      validate: {
+        options: {
+          allowUnknown: true,
+        },
+        payload: Joi.object(),
+      },
     },
   },
 ];
