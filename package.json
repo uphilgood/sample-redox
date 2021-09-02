@@ -36,6 +36,7 @@
     "@types/hapi__inert": "^5.2.0",
     "@types/hapi__joi": "^17.1.3",
     "@types/hapi__vision": "^5.5.1",
+    "axios": "^0.21.1",
     "chai": "^4.3.0",
     "dotenv": "^8.2.0",
     "hapi-swagger": "^13.0.2",
