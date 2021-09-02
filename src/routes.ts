@@ -1,4 +1,5 @@
 import * as Joi from "@hapi/joi";
+import { appointments } from "./handlers/appointments";
 import { getDestination, postDestination } from './handlers/destination';
 import { IResultHTTPStatus} from './types/types';
 
@@ -61,6 +62,22 @@ export const Routes = [
         },
         payload: Joi.object(),
       },
+    },
+  },
+  {
+    method: "GET",
+    path: "/appointments",
+    options: {
+      handler: appointments,
+      description: "Gets destination token",
+      notes: `return destination token challenge`,
+      plugins: {
+        "hapi-swagger": {
+          responses: resultHTTPStatus,
+        },
+      },
+      tags: ["api"],
+      validate: {},
     },
   },
 ];

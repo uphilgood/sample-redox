@@ -1,5 +1,6 @@
 import { ResponseToolkit } from "@hapi/hapi";
 import { IResponseObject } from "../types/types";
+import { DB } from "../db";
 
 const DESTINATION_VERIFICATION_TOKEN = 'abcd1234'
 
@@ -30,7 +31,25 @@ export const postDestination = (
 
   const message = r.payload;
 
-  console.log('message', r.payload)
+  if (message.Meta.DataModel === 'Scheduling' && message.Meta.EventType === 'New') {
+    const appointment = {
+      patientFirstName: message.Patient.Demographics.FirstName,
+      patientLastName: message.Patient.Demographics.LastName,
+      patientIdentifiers: message.Patient.Identifiers,
+      visitDateTime: message.Visit.VisitDateTime,
+      visitReason: message.Visit.Reason,
+      providerFirstName: message.Visit.AttendingProvider.FirstName,
+      providerLastName: message.Visit.AttendingProvider.LastName,
+      providerId: message.Visit.AttendingProvider.ID,
+    }
+
+    DB.appointments.push(appointment);
+
+    console.log('apppointments', DB)
+
+    
+    return appointment;
+  }
 
   return message;
 
