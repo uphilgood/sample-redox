@@ -88,7 +88,7 @@ const getAuthToken = async (callback: any) => {
     authToken = accessToken;
     authTokenExpires = expires;
 
-    callback(authToken);
+    return callback(authToken);
   }
 }
 
