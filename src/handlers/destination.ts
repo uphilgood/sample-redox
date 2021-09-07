@@ -62,6 +62,13 @@ export const postDestination = async (
 
 };
 
+
+const getClinicalSummary = async (appointment: any) => {
+
+  return await getAuthToken((token: string) => fetchRedoxClinicalSummary(token, appointment))
+  
+}
+
 const getAuthToken = async (callback: any) => {
   if (authToken && Date.now() < new Date(authTokenExpires).getTime()) {
     return callback(authToken);
@@ -92,54 +99,50 @@ const getAuthToken = async (callback: any) => {
   }
 }
 
-const getClinicalSummary = async (appointment: any) => {
 
-  return await getAuthToken(async (token: string) => {
-    const redoxService = axios.create({
-      timeout: 35000,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+const fetchRedoxClinicalSummary = async (token: string, appointment: any) => {
+  const redoxService = axios.create({
+    timeout: 35000,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+
+  const res = await redoxService({
+    method: 'post',
+    url: ' https://api.redoxengine.com/query',
+    data: {
+      "Meta": {
+        "DataModel": "Clinical Summary",
+        "EventType": "PatientQuery",
+        "EventDateTime": "2021-09-02T16:48:31.587Z",
+        "Test": true,
+        "Destinations": [
+          {
+            "ID": "ef9e7448-7f65-4432-aa96-059647e9b357",
+            "Name": "Patient Query Endpoint"
+          }
+        ],
+        "Logs": [
+          {
+            "ID": "d9f5d293-7110-461e-a875-3beb089e79f3",
+            "AttemptID": "925d1617-2fe0-468c-a14c-f8c04b572c54"
+          }
+        ],
+        "FacilityCode": null
       },
-    });
-  
-    const res = await redoxService({
-      method: 'post',
-      url: ' https://api.redoxengine.com/query',
-      data: {
-        "Meta": {
-          "DataModel": "Clinical Summary",
-          "EventType": "PatientQuery",
-          "EventDateTime": "2021-09-02T16:48:31.587Z",
-          "Test": true,
-          "Destinations": [
-            {
-              "ID": "ef9e7448-7f65-4432-aa96-059647e9b357",
-              "Name": "Patient Query Endpoint"
-            }
-          ],
-          "Logs": [
-            {
-              "ID": "d9f5d293-7110-461e-a875-3beb089e79f3",
-              "AttemptID": "925d1617-2fe0-468c-a14c-f8c04b572c54"
-            }
-          ],
-          "FacilityCode": null
-        },
-        "Patient": {
-          "Identifiers": appointment.patientIdentifiers
-        },
-        "Location": {
-          "Department": null
-        }
+      "Patient": {
+        "Identifiers": appointment.patientIdentifiers
+      },
+      "Location": {
+        "Department": null
       }
-    });
+    }
+  });
 
-    console.log('clinical summary', res.data)
+  console.log('clinical summary', res.data)
 
-    return res.data;
-    
-  })
+  return res.data;
   
 }
-
