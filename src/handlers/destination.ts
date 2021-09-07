@@ -63,11 +63,9 @@ export const postDestination = async (
 };
 
 
-const getClinicalSummary = async (appointment: any) => {
-
-  return await getAuthToken((token: string) => fetchRedoxClinicalSummary(token, appointment))
+const getClinicalSummary = async (appointment: any) => await getAuthToken((token: string) => fetchRedoxClinicalSummary(token, appointment))
   
-}
+
 
 const getAuthToken = async (callback: any) => {
   if (authToken && Date.now() < new Date(authTokenExpires).getTime()) {
