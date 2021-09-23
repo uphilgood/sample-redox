@@ -4,9 +4,11 @@ import { DB } from "../db";
 import axios from "axios";
 import { access } from "node:fs";
 
-const DESTINATION_VERIFICATION_TOKEN = 'abcd1234'
-const SOURCE_API_KEY = '0b2a1c68-15ee-4cbe-9983-29dd392d4d5c';
-const SOURCE_SECERT = '9bHeXVeL46SBly7l4w96t7Leyi6C0GqzfN0Y1xjGiwlcuXe6F57ybwUzyvkahoUt79s9H1JQ';
+require('dotenv').config();
+
+const DESTINATION_VERIFICATION_TOKEN = process.env.DESTINATION_VERIFICATION_TOKEN;
+const SOURCE_API_KEY = process.env.API_KEY;
+const SOURCE_SECERT = process.env.API_KEY;
 let authToken: any, authTokenExpires: string | number | Date
 
 export const getDestination = (
